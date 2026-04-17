@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohof Scharf — Pferdepension & Reitbetrieb</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --earth-900: #2C1810;
+  --earth-800: #3D2317;
+  --earth-700: #5C3A2A;
+  --earth-600: #7A5240;
+  --earth-500: #96694F;
+  --earth-400: #B8956E;
+  --earth-300: #D4B896;
+  --earth-200: #E8D5BE;
+  --earth-100: #F3E8D8;
+  --earth-50:  #FAF5EE;
+  --green-900: #1A2E1A;
+  --green-700: #2D5A27;
+  --green-600: #3A7233;
+  --green-500: #4A8B3F;
+  --green-400: #6AAD5A;
+  --green-300: #8DC47E;
+  --green-200: #B5D9A8;
+  --green-100: #DCF0D4;
+  --green-50:  #F0F8EC;
+  --cream: #FDFBF7;
+  --warm-white: #FFF9F0;
+  --text-primary: #2C1810;
+  --text-secondary: #5C3A2A;
+  --text-muted: #96694F;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+nav.scrolled {
+  background: rgba(253, 251, 247, 0.92);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(44, 24, 16, 0.08);
+  padding: 0.8rem 3rem;
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--earth-900);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.nav-brand-sub {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--green-600);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--green-600);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a:hover { color: var(--green-700); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 0.8rem !important;
+  padding: 0.6rem 1.4rem;
+  background: var(--green-700) !important;
+  color: var(--warm-white) !important;
+  border-radius: 100px;
+  transition: all 0.3s !important;
+}
+
+.nav-cta:hover { background: var(--green-600) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+
+.nav-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--earth-800);
+  transition: 0.3s;
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--earth-100) 0%, var(--green-50) 50%, var(--earth-50) 100%);
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: 
+    radial-gradient(circle at 20% 50%, var(--green-600) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, var(--earth-600) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 3rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-text { animation: fadeInUp 1s ease-out 0.2s both; }
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-600);
+  margin-bottom: 1.5rem;
+}
+
+.hero-label::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: var(--green-500);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--earth-900);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--green-700);
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: var(--green-700);
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-primary:hover { background: var(--green-600); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45, 90, 39, 0.25); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--earth-700);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 2px solid var(--earth-300);
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-secondary:hover { border-color: var(--earth-500); background: var(--earth-100); }
+
+.hero-visual {
+  position: relative;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.hero-image-frame {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: var(--earth-200);
+}
+
+.hero-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(44, 24, 16, 0.3));
+  z-index: 1;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--earth-500);
+  background: linear-gradient(135deg, var(--earth-200), var(--green-100));
+}
+
+.hero-image-placeholder svg { width: 80px; height: 80px; opacity: 0.4; }
+
+.hero-stat-card {
+  position: absolute;
+  bottom: -1.5rem;
+  left: -2rem;
+  background: white;
+  border-radius: 16px;
+  padding: 1.2rem 1.6rem;
+  box-shadow: 0 20px 60px rgba(44, 24, 16, 0.12);
+  z-index: 3;
+  animation: floatIn 1s ease-out 0.9s both;
+}
+
+.hero-stat-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--green-700);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.hero-accent-card {
+  position: absolute;
+  top: 2rem;
+  right: -1.5rem;
+  background: var(--green-700);
+  color: white;
+  border-radius: 16px;
+  padding: 1rem 1.4rem;
+  z-index: 3;
+  animation: floatIn 1s ease-out 1.1s both;
+}
+
+.hero-accent-card span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── SECTION SHARED ─── */
+.section-padding { padding: 7rem 3rem; }
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 4rem;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-600);
+  margin-bottom: 1rem;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  background: var(--green-400);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--earth-900);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ─── ANGEBOT / FEATURES ─── */
+.angebot { background: var(--cream); }
+
+.angebot-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.angebot-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(44, 24, 16, 0.06);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.angebot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-500), var(--green-300));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.angebot-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(44, 24, 16, 0.1); }
+.angebot-card:hover::before { transform: scaleX(1); }
+
+.angebot-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--green-700);
+}
+
+.angebot-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--earth-900);
+  margin-bottom: 0.8rem;
+}
+
+.angebot-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.angebot-card ul {
+  list-style: none;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.angebot-card li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.angebot-card li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-400);
+  flex-shrink: 0;
+}
+
+/* ─── HIGHLIGHTS / ZAHLEN ─── */
+.highlights {
+  background: var(--green-900);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlights::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(74, 139, 63, 0.15) 0%, transparent 60%);
+}
+
+.highlights-grid {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  text-align: center;
+}
+
+.highlight-item { animation: fadeInUp 0.6s ease-out both; }
+
+.highlight-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--green-300);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ─── REITUNTERRICHT ─── */
+.reitunterricht { background: var(--earth-50); }
+
+.reit-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.reit-image-group { position: relative; }
+
+.reit-image-main {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, var(--earth-200), var(--green-100));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--earth-500);
+  font-size: 0.9rem;
+}
+
+.reit-image-secondary {
+  position: absolute;
+  bottom: -2rem;
+  right: -2rem;
+  width: 55%;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--green-100), var(--earth-200));
+  border: 5px solid var(--earth-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--earth-500);
+  font-size: 0.8rem;
+}
+
+.reit-content { padding: 1rem 0; }
+
+.reit-content .section-label { justify-content: flex-start; }
+.reit-content .section-label::before { display: block; }
+.reit-content .section-label::after { display: none; }
+
+.reit-content .section-title { text-align: left; }
+
+.reit-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.reit-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.reit-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.reit-feature-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--green-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--green-700);
+}
+
+.reit-feature-text h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--earth-800);
+  margin-bottom: 0.15rem;
+}
+
+.reit-feature-text p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ─── GALERIE ─── */
+.galerie { background: var(--cream); }
+
+.galerie-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.galerie-item {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--earth-200), var(--green-100));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--earth-500);
+  font-size: 0.85rem;
+  min-height: 220px;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.galerie-item:hover { transform: scale(1.02); }
+
+.galerie-item:nth-child(1) { grid-column: span 2; grid-row: span 2; min-height: 460px; }
+.galerie-item:nth-child(4) { grid-column: span 2; }
+
+/* ─── KONTAKT CTA ─── */
+.kontakt-cta {
+  background: linear-gradient(135deg, var(--earth-800), var(--green-900));
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.kontakt-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(106, 173, 90, 0.1) 0%, transparent 50%);
+}
+
+.kontakt-inner {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.kontakt-cta .section-label { color: var(--green-300); }
+.kontakt-cta .section-label::before,
+.kontakt-cta .section-label::after { background: var(--green-500); }
+
+.kontakt-cta .section-title { color: var(--earth-100); }
+
+.kontakt-cta .section-desc { color: rgba(255, 255, 255, 0.65); }
+
+.kontakt-details {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.kontakt-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--earth-200);
+}
+
+.kontakt-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-300);
+}
+
+.kontakt-item-text {
+  text-align: left;
+}
+
+.kontakt-item-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.15rem;
+}
+
+.kontakt-item-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--earth-100);
+}
+
+.kontakt-item-value a { color: inherit; text-decoration: none; }
+.kontakt-item-value a:hover { color: var(--green-300); }
+
+.kontakt-actions { margin-top: 2.5rem; }
+
+.kontakt-actions .btn-primary {
+  background: var(--green-600);
+  padding: 1.1rem 2.5rem;
+  font-size: 0.95rem;
+}
+
+.kontakt-actions .btn-primary:hover { background: var(--green-500); }
+
+/* ─── KONTAKT FORMS ─── */
+.kontakt-forms {
+  background: var(--earth-50);
+}
+
+.kontakt-forms-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.kontakt-forms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.kontakt-form-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  border: 1px solid rgba(44, 24, 16, 0.06);
+  box-shadow: 0 4px 24px rgba(44, 24, 16, 0.04);
+  transition: box-shadow 0.4s;
+}
+
+.kontakt-form-card:hover {
+  box-shadow: 0 12px 40px rgba(44, 24, 16, 0.08);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.form-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.form-card-icon.pension { background: var(--green-100); color: var(--green-700); }
+.form-card-icon.reit { background: var(--earth-100); color: var(--earth-700); }
+
+.form-card-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--earth-900);
+}
+
+.form-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  padding-left: 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.form-group label .required {
+  color: var(--earth-500);
+  margin-left: 2px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--earth-200);
+  border-radius: 12px;
+  background: var(--cream);
+  outline: none;
+  transition: all 0.3s;
+  -webkit-appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(74, 139, 63, 0.1);
+  background: white;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--earth-400);
+  font-weight: 300;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2396694F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--earth-300);
+  border-radius: 5px;
+  background: var(--cream);
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.form-checkbox input[type="checkbox"]:checked {
+  background: var(--green-600);
+  border-color: var(--green-600);
+}
+
+.form-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.form-checkbox label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.form-checkbox label a {
+  color: var(--green-700);
+  text-decoration: underline;
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-submit.pension {
+  background: var(--green-700);
+}
+
+.btn-submit.pension:hover {
+  background: var(--green-600);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(45, 90, 39, 0.25);
+}
+
+.btn-submit.reit {
+  background: var(--earth-700);
+}
+
+.btn-submit.reit:hover {
+  background: var(--earth-600);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(92, 58, 42, 0.25);
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.form-success.show {
+  display: block;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.form-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-success-icon.pension { background: var(--green-100); color: var(--green-700); }
+.form-success-icon.reit { background: var(--earth-100); color: var(--earth-700); }
+
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--earth-900);
+  margin-bottom: 0.5rem;
+}
+
+.form-success p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Kontakt info bar below forms */
+.kontakt-info-bar {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--green-900);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.kontakt-info-bar .kontakt-item-icon {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--green-300);
+}
+
+.kontakt-info-bar .kontakt-item-label {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.kontakt-info-bar .kontakt-item-value {
+  color: var(--earth-100);
+}
+
+.kontakt-info-bar .kontakt-item-value a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.kontakt-info-bar .kontakt-item-value a:hover {
+  color: var(--green-300);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--earth-900);
+  padding: 3rem;
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--earth-300);
+  margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+}
+
+.footer-links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--green-300); }
+
+.footer-copy {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; }
+  .hero-visual { max-width: 500px; }
+  .reit-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .reit-image-group { max-width: 500px; }
+  .angebot-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  .galerie-grid { grid-template-columns: repeat(2, 1fr); }
+  .galerie-item:nth-child(1) { grid-column: span 2; grid-row: span 1; min-height: 280px; }
+  .galerie-item:nth-child(4) { grid-column: span 1; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.7rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: flex; }
+  .section-padding { padding: 4rem 1.5rem; }
+  .hero-content { padding: 6rem 1.5rem 3rem; }
+  .hero-stat-card { left: 0; bottom: -1rem; }
+  .hero-accent-card { right: 0; top: 1rem; }
+  .reit-features { grid-template-columns: 1fr; }
+  .reit-image-secondary { right: -0.5rem; }
+  .highlights-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .galerie-grid { grid-template-columns: 1fr; }
+  .galerie-item:nth-child(1) { grid-column: span 1; min-height: 220px; }
+  .galerie-item:nth-child(4) { grid-column: span 1; }
+  .kontakt-details { flex-direction: column; align-items: center; gap: 1.5rem; }
+  .kontakt-forms-grid { grid-template-columns: 1fr; }
+  .kontakt-info-bar { flex-direction: column; align-items: center; gap: 1.5rem; }
+  .footer-links { flex-wrap: wrap; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">Biohof Scharf</span>
+    <span class="nav-brand-sub">Pferdepension & Reitbetrieb</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#pension">Pension</a></li>
+    <li><a href="#reitunterricht">Reitunterricht</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#kontakt-pension" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-label">Bio-zertifiziert · Naturverbunden</div>
+      <h1 class="hero-title">Wo Pferde <em>natürlich</em> leben dürfen</h1>
+      <p class="hero-desc">Artgerechte Haltung nach biologischen Richtlinien mit viel Auslauf, eigenem Futter und persönlicher Betreuung — auf dem Biohof Scharf in Ollendorf.</p>
+      <div class="hero-actions">
+        <a href="#kontakt-pension" class="btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Jetzt anfragen
+        </a>
+        <a href="#pension" class="btn-secondary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          Mehr erfahren
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-frame">
+        <div class="hero-image-placeholder">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 80 C20 80 25 45 40 40 C50 37 52 50 55 48 C60 44 65 30 75 35 C85 40 80 80 80 80Z"/><circle cx="70" cy="25" r="8"/></svg>
+          Hauptbild hier einfügen
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">~30</div>
+        <div class="hero-stat-label">Stellplätze</div>
+      </div>
+      <div class="hero-accent-card">
+        <span>🌿 Bio-zertifiziert</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ANGEBOT ─── -->
+<section class="angebot section-padding" id="pension">
+  <div class="section-header reveal">
+    <div class="section-label">Unsere Pferdepension</div>
+    <h2 class="section-title">Alles für das Wohl Ihres Pferdes</h2>
+    <p class="section-desc">Auf über 20 Hektar Weideland bieten wir Ihrem Pferd ein naturnahes Zuhause mit biologischer Fütterung und liebevoller Betreuung.</p>
+  </div>
+  <div class="angebot-grid">
+    <div class="angebot-card reveal">
+      <div class="angebot-icon">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Unterbringung</h3>
+      <p>Flexible Haltung — ganz nach den Bedürfnissen Ihres Pferdes.</p>
+      <ul>
+        <li>Offenstall & Boxenhaltung</li>
+        <li>Im Sommer 24h Koppel</li>
+        <li>Ca. 20 ha Weideland</li>
+        <li>Stroh & Heu aus eigener Herstellung</li>
+      </ul>
+    </div>
+    <div class="angebot-card reveal">
+      <div class="angebot-icon">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Bio-Fütterung</h3>
+      <p>Natürliche Verpflegung aus eigener biologischer Erzeugung.</p>
+      <ul>
+        <li>Heunetze für langsames Fressen</li>
+        <li>Eigener Bio-Hafer</li>
+        <li>Heu & Stroh vom eigenen Hof</li>
+        <li>Nach biologischen Richtlinien</li>
+      </ul>
+    </div>
+    <div class="angebot-card reveal">
+      <div class="angebot-icon">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h3>Ausstattung</h3>
+      <p>Alles vor Ort für Training und Arbeit mit Ihrem Pferd.</p>
+      <ul>
+        <li>Reitplatz 25 × 45 Meter</li>
+        <li>Überdachter Roundpen (20 m)</li>
+        <li>Großzügiges Weideland</li>
+        <li>Anbindung an Reitwege</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ZAHLEN ─── -->
+<section class="highlights section-padding">
+  <div class="highlights-grid">
+    <div class="highlight-item reveal">
+      <div class="highlight-number">~30</div>
+      <div class="highlight-label">Stellplätze für<br>Pferde</div>
+    </div>
+    <div class="highlight-item reveal">
+      <div class="highlight-number">20 ha</div>
+      <div class="highlight-label">Weideland &<br>Koppeln</div>
+    </div>
+    <div class="highlight-item reveal">
+      <div class="highlight-number">100%</div>
+      <div class="highlight-label">Bio-zertifizierte<br>Fütterung</div>
+    </div>
+    <div class="highlight-item reveal">
+      <div class="highlight-number">25×45</div>
+      <div class="highlight-label">Meter<br>Reitplatz</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REITUNTERRICHT ─── -->
+<section class="reitunterricht section-padding" id="reitunterricht">
+  <div class="reit-layout">
+    <div class="reit-image-group reveal">
+      <div class="reit-image-main">Bild: Reitunterricht</div>
+      <div class="reit-image-secondary">Bild: Pferd & Reiter</div>
+    </div>
+    <div class="reit-content reveal">
+      <div class="section-label">Reitbetrieb</div>
+      <h2 class="section-title">Reitunterricht &<br>Pferdeausbildung</h2>
+      <p class="reit-text">Ob Anfänger oder Fortgeschrittene — wir bieten individuellen Reitunterricht auf unseren hofeigenen Pferden. Zusätzlich übernehmen wir die Ausbildung und das Anreiten junger Pferde.</p>
+      <div class="reit-features">
+        <div class="reit-feature">
+          <div class="reit-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <div class="reit-feature-text">
+            <h4>Privatunterricht</h4>
+            <p>Auf hofeigenen Pferden</p>
+          </div>
+        </div>
+        <div class="reit-feature">
+          <div class="reit-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="reit-feature-text">
+            <h4>Pferdeausbildung</h4>
+            <p>Beritt & Anreiten</p>
+          </div>
+        </div>
+        <div class="reit-feature">
+          <div class="reit-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="reit-feature-text">
+            <h4>Jungpferde</h4>
+            <p>Aufzucht & Begleitung</p>
+          </div>
+        </div>
+        <div class="reit-feature">
+          <div class="reit-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="reit-feature-text">
+            <h4>Flexibel</h4>
+            <p>Termine nach Absprache</p>
+          </div>
+        </div>
+      </div>
+      <a href="#kontakt-reitunterricht" class="btn-primary">Reitunterricht anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALERIE ─── -->
+<section class="galerie section-padding" id="galerie">
+  <div class="section-header reveal">
+    <div class="section-label">Eindrücke</div>
+    <h2 class="section-title">Leben auf dem Biohof</h2>
+    <p class="section-desc">Ein paar Eindrücke von unseren Pferden, dem Hof und dem Alltag in der Natur.</p>
+  </div>
+  <div class="galerie-grid reveal">
+    <div class="galerie-item">Bild 1 — Koppel</div>
+    <div class="galerie-item">Bild 2 — Offenstall</div>
+    <div class="galerie-item">Bild 3 — Reitplatz</div>
+    <div class="galerie-item">Bild 4 — Roundpen</div>
+    <div class="galerie-item">Bild 5 — Pferde</div>
+  </div>
+</section>
+
+<!-- ─── KONTAKTFORMULARE ─── -->
+<section class="kontakt-forms section-padding" id="kontakt-pension">
+  <div class="kontakt-forms-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">Schreiben Sie uns</h2>
+      <p class="section-desc">Wählen Sie das passende Formular — ob Pensionsplatz oder Reitunterricht. Wir melden uns zeitnah bei Ihnen.</p>
+    </div>
+
+    <div class="kontakt-forms-grid">
+
+      <!-- FORMULAR 1: Pferdepension -->
+      <div class="kontakt-form-card reveal" id="form-pension-card">
+        <div class="form-card-header">
+          <div class="form-card-icon pension">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3 class="form-card-title">Pferdepension</h3>
+        </div>
+        <p class="form-card-desc">Anfrage für einen Einstell- oder Aufzuchtplatz auf dem Biohof.</p>
+
+        <div id="form-pension">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vorname <span class="required">*</span></label>
+              <input type="text" placeholder="Ihr Vorname" required>
+            </div>
+            <div class="form-group">
+              <label>Nachname <span class="required">*</span></label>
+              <input type="text" placeholder="Ihr Nachname" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>E-Mail <span class="required">*</span></label>
+              <input type="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" placeholder="Optional">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Haltungsart</label>
+              <select>
+                <option value="" disabled selected>Bitte wählen</option>
+                <option>Offenstall</option>
+                <option>Box</option>
+                <option>Beides möglich</option>
+                <option>Bin unsicher — bitte beraten</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Anzahl Pferde</label>
+              <select>
+                <option value="" disabled selected>Bitte wählen</option>
+                <option>1 Pferd</option>
+                <option>2 Pferde</option>
+                <option>3 oder mehr</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label>Ihre Nachricht</label>
+              <textarea placeholder="Erzählen Sie uns etwas über Ihr Pferd, besondere Bedürfnisse oder wann Sie starten möchten…"></textarea>
+            </div>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="dsgvo-pension">
+            <label for="dsgvo-pension">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#">Datenschutzerklärung</a> zu. <span class="required">*</span></label>
+          </div>
+          <button class="btn-submit pension" onclick="submitForm('pension')">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            Pensionsanfrage senden
+          </button>
+        </div>
+
+        <div class="form-success" id="success-pension">
+          <div class="form-success-icon pension">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Vielen Dank!</h3>
+          <p>Ihre Pensionsanfrage ist bei uns eingegangen.<br>Wir melden uns innerhalb von 1–2 Werktagen.</p>
+        </div>
+      </div>
+
+      <!-- FORMULAR 2: Reitunterricht -->
+      <div class="kontakt-form-card reveal" id="form-reit-card">
+        <span id="kontakt-reitunterricht" style="position:absolute;margin-top:-120px;"></span>
+        <div class="form-card-header">
+          <div class="form-card-icon reit">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="form-card-title">Reitunterricht & Ausbildung</h3>
+        </div>
+        <p class="form-card-desc">Anfrage für Reitstunden, Pferdeausbildung oder Jungpferdebegleitung.</p>
+
+        <div id="form-reit">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vorname <span class="required">*</span></label>
+              <input type="text" placeholder="Ihr Vorname" required>
+            </div>
+            <div class="form-group">
+              <label>Nachname <span class="required">*</span></label>
+              <input type="text" placeholder="Ihr Nachname" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>E-Mail <span class="required">*</span></label>
+              <input type="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" placeholder="Optional">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Interesse an</label>
+              <select>
+                <option value="" disabled selected>Bitte wählen</option>
+                <option>Reitunterricht (Anfänger)</option>
+                <option>Reitunterricht (Fortgeschritten)</option>
+                <option>Pferdeausbildung / Beritt</option>
+                <option>Anreiten von Jungpferden</option>
+                <option>Jungpferde-Aufzucht</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Erfahrung</label>
+              <select>
+                <option value="" disabled selected>Bitte wählen</option>
+                <option>Keine Erfahrung</option>
+                <option>Grundkenntnisse</option>
+                <option>Fortgeschritten</option>
+                <option>Erfahrener Reiter</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label>Ihre Nachricht</label>
+              <textarea placeholder="Was möchten Sie lernen oder welches Pferd soll ausgebildet werden? Wann hätten Sie Zeit?"></textarea>
+            </div>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="dsgvo-reit">
+            <label for="dsgvo-reit">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#">Datenschutzerklärung</a> zu. <span class="required">*</span></label>
+          </div>
+          <button class="btn-submit reit" onclick="submitForm('reit')">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            Reitanfrage senden
+          </button>
+        </div>
+
+        <div class="form-success" id="success-reit">
+          <div class="form-success-icon reit">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Vielen Dank!</h3>
+          <p>Ihre Anfrage zum Reitunterricht ist eingegangen.<br>Wir melden uns in Kürze bei Ihnen.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Kontaktinfo-Bar darunter -->
+    <div class="kontakt-info-bar reveal">
+      <div class="kontakt-item">
+        <div class="kontakt-item-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="kontakt-item-text">
+          <div class="kontakt-item-label">Adresse</div>
+          <div class="kontakt-item-value">Hanfsack 50b, 99198 Ollendorf</div>
+        </div>
+      </div>
+      <div class="kontakt-item">
+        <div class="kontakt-item-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="kontakt-item-text">
+          <div class="kontakt-item-label">Telefon</div>
+          <div class="kontakt-item-value"><a href="tel:036203253534">036203 253534</a></div>
+        </div>
+      </div>
+      <div class="kontakt-item">
+        <div class="kontakt-item-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="kontakt-item-text">
+          <div class="kontakt-item-label">E-Mail</div>
+          <div class="kontakt-item-value"><a href="mailto:info@biohof-scharf.de">info@biohof-scharf.de</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-brand">Biohof Scharf</div>
+  <div class="footer-sub">Pferdepension & Reitbetrieb · Ollendorf</div>
+  <div class="footer-links">
+    <a href="#pension">Pension</a>
+    <a href="#reitunterricht">Reitunterricht</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#kontakt-pension">Kontakt</a>
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+  <div class="footer-copy">© 2026 Biohof Scharf · Hanfsack 50b, 99198 Ollendorf · Alle Rechte vorbehalten</div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// Stagger cards
+document.querySelectorAll('.angebot-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.12}s`;
+});
+document.querySelectorAll('.highlight-item').forEach((item, i) => {
+  item.style.transitionDelay = `${i * 0.1}s`;
+});
+document.querySelectorAll('.galerie-item').forEach((item, i) => {
+  item.style.transitionDelay = `${i * 0.08}s`;
+});
+
+// Form submission
+function submitForm(type) {
+  const formEl = document.getElementById(`form-${type}`);
+  const successEl = document.getElementById(`success-${type}`);
+  
+  // Basic validation
+  const inputs = formEl.querySelectorAll('input[required]');
+  let valid = true;
+  inputs.forEach(input => {
+    if (!input.value.trim()) {
+      input.style.borderColor = '#c44';
+      input.addEventListener('input', () => { input.style.borderColor = ''; }, { once: true });
+      valid = false;
+    }
+  });
+
+  const checkbox = formEl.closest('.kontakt-form-card').querySelector('input[type="checkbox"]');
+  if (!checkbox.checked) {
+    checkbox.style.outline = '2px solid #c44';
+    checkbox.addEventListener('change', () => { checkbox.style.outline = ''; }, { once: true });
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  // Collect form data (for backend integration later)
+  const data = {};
+  formEl.querySelectorAll('input, select, textarea').forEach(el => {
+    const label = el.closest('.form-group')?.querySelector('label')?.textContent?.trim() || el.type;
+    data[label] = el.value;
+  });
+  data.type = type;
+  console.log('Formular gesendet:', data);
+
+  // Show success message
+  formEl.style.display = 'none';
+  successEl.classList.add('show');
+
+  // In production: hier AJAX-Request an Backend senden
+  // fetch('/api/kontakt', { method: 'POST', body: JSON.stringify(data) })
+}
+</script>
+
+</body>
+</html>
